@@ -1,0 +1,11 @@
+F:\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.dll
+F:\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.deps.json
+F:\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.runtimeconfig.json
+F:\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.runtimeconfig.dev.json
+F:\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.pdb
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.csprojResolveAssemblyReference.cache
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.csproj.CoreCompileInputs.cache
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfoInputs.cache
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfo.cs
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.dll
+F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.pdb
