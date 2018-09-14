@@ -35,7 +35,7 @@ namespace HdrShot
 
             brightness += color;
 
-            if(brightness.GetBrightness() > 0.7f)
+            if (brightness.GetBrightnessNormal() > 0.8f)
             {
                 return 0;
             }

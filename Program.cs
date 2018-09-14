@@ -12,9 +12,13 @@ namespace HdrShot
 
         static void Main(string[] args)
         {
+            /*var asd = new DeepRangeColor { Red = 255, Green = 255, Blue = 255 };
+            asd.SetBrightnessByLocal(1.5f);*/
+
             var images = Directory.GetFiles("../../../images/test").Select(x => new Bitmap(Image.FromFile(x))).ToList();
 
             var deepRangeBitmap = new DeepRangeBitmap(images[0].Width, images[0].Height);
+            var brightnessMapPre = new Bitmap(images[0].Width, images[0].Height);
             var brightnessMap = new Bitmap(images[0].Width, images[0].Height);
             var test = new Bitmap(images[0].Width, images[0].Height);
             var pre = new Bitmap(images[0].Width, images[0].Height);
@@ -40,22 +44,22 @@ namespace HdrShot
                 Console.WriteLine($"{i} images out of {images.Count}");
             }
 
-            var average = 1 / deepRangeBitmap.Pixels.Average(x => x.Average(s => s.GetBrightness()));
+            var average = deepRangeBitmap.Pixels.Average(x => x.Average(s => s.GetBrightness()));
             var mostBrightnessColor = deepRangeBitmap.BrightnessPixel;
             var mostBrightnessPixel = mostBrightnessColor.GetBrightness();
-            var target = 0.7f;
-            var maxChange = 0.3f;
+            var target = average / mostBrightnessPixel;
+            var maxChange = 0.15f;
 
             var map = new List<List<Color>>();
             var matrix = new float[,]
             {
-                { 1.2f, 1.2f, 1.2f},
-                { 1.2f, 0.2f, 1.2f},
-                { 1.2f, 1.2f, 1.2f}
+                { 1f, 1f, 1f},
+                { 1f, 0.6f, 1f},
+                { 1f, 1f, 1f}
             };
 
-            var width = (int)Math.Ceiling(matrix.GetLength(0) / 2f);
-            var height = (int)Math.Ceiling(matrix.GetLength(1) / 2f);
+            var width = (int)Math.Floor(matrix.GetLength(0) / 2f);
+            var height = (int)Math.Floor(matrix.GetLength(1) / 2f);
 
             for (var y = 0; y < brightnessMap.Height; y++)
             {
@@ -68,60 +72,117 @@ namespace HdrShot
                     //brightness += brightness > average ? -brightness * min : brightness * min;
 
                     var diff = target - brightness;
-
+                    
                     var a = Math.Abs(diff / brightness) <= maxChange ? diff : brightness * maxChange;
-
+                    
                     brightness += diff > 0 ? Math.Abs(a) : -Math.Abs(a);
 
                     var red = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.X * (255 * brightness));
                     var green = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.Y * (255 * brightness));
                     var blue = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.Z * (255 * brightness));
 
-                    //brightnessMap.SetPixel(x, y, color);
-                    //test.SetPixel(x, y, Color.FromArgb(red, green, blue));
-                    map[y].Add(Color.FromArgb(red, green, blue));
-                    pre.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                    var deepColor = new DeepRangeColor { Red = red, Green = green, Blue = blue };
+
+                    //deepColor.SetBrightness(0.3f);
+
+                    brightnessMap.SetPixel(x, y, Color.FromArgb((int)(255 * brightness), (int)(255 * brightness), (int)(255 * brightness)));
+                    test.SetPixel(x, y, Color.FromArgb((int)deepColor.Red, (int)deepColor.Green, (int)deepColor.Blue));
                 }
             }
 
-            for (var y = 0; y < map.Count; y++)
+            /*for (var y = 0; y < brightnessMap.Height; y++)
             {
-                for (var x = 0; x < map[y].Count; x++)
+                map.Add(new List<Color>());
+
+                for (var x = 0; x < brightnessMap.Width; x++)
                 {
-                    var red = 0f;
-                    var green = 0f;
-                    var blue = 0f;
+                    var brightness = deepRangeBitmap.Pixels[y][x].GetBrightness() / mostBrightnessPixel;
 
-                    var count = 0;
+                    //brightness += brightness > average ? -brightness * min : brightness * min;
 
-                    for (int my = y - height, myi = 0; my < map.Count && myi < matrix.GetLength(0); my++, myi++)
-                    {
-                        for (int mx = x - width, mxi = 0; mx < map[y].Count && mxi < matrix.GetLength(1); mx++, mxi++)
-                        {
-                            if (my < 0 || mx < 0)
-                            {
-                                continue;
-                            }
+                    //var diff = target - brightness;
+                    //
+                    //var a = Math.Abs(diff / brightness) <= maxChange ? diff : brightness * maxChange;
+                    //
+                    //brightness += diff > 0 ? Math.Abs(a) : -Math.Abs(a);
 
-                            red += matrix[myi, mxi] * map[my][mx].R;
-                            green += matrix[myi, mxi] * map[my][mx].G;
-                            blue += matrix[myi, mxi] * map[my][mx].B;
+                    var red = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.X * (255 * brightness));
+                    var green = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.Y * (255 * brightness));
+                    var blue = (int)Add(deepRangeBitmap.Pixels[y][x].Relation.Z * (255 * brightness));
 
-                            count++;
-                        }
-                    }
+                    var deepColor = new DeepRangeColor { Red = red, Green = green, Blue = blue };
 
-                    red /= count - 1;
-                    green /= count - 1;
-                    blue /= count - 1;
+                    deepColor.SetBrightness(0.5f);
 
-                    test.SetPixel(x, y, Color.FromArgb((int)red, (int)green, (int)blue));
+                    var color = (int)(deepColor.GetBrightness() * 255);
+
+                    //brightnessMap.SetPixel(x, y, color);
+                    test.SetPixel(x, y, Color.FromArgb((int)deepColor.Red, (int)deepColor.Green, (int)deepColor.Blue));
+                    map[y].Add(Color.FromArgb((int)deepColor.Red, (int)deepColor.Green, (int)deepColor.Blue));
+                    pre.SetPixel(x, y, Color.FromArgb((int)deepColor.Red, (int)deepColor.Green, (int)deepColor.Blue));
+
+                    //var color = (int)((new DeepRangeColor { Red = red, Green = green, Blue = blue }).GetBrightness() * 255);
+
+                    brightnessMapPre.SetPixel(x, y, Color.FromArgb(color, color, color));
                 }
             }
 
-            //brightnessMap.Save("map.png");
-            pre.Save("pre.png");
-            test.Save("test.png");
+            for (var i = 0; i < 1; i++)
+            {
+                var buffer = new List<List<Color>>();
+
+                for (var y = 0; y < map.Count; y++)
+                {
+                    buffer.Add(new List<Color>());
+
+                    for (var x = 0; x < map[y].Count; x++)
+                    {
+                        buffer[y].Add(Color.Black);
+
+                        var red = 0f;
+                        var green = 0f;
+                        var blue = 0f;
+
+                        var count = 0;
+
+                        for (int my = y - height, myi = 0; my < map.Count && myi < matrix.GetLength(0); my++, myi++)
+                        {
+                            for (int mx = x - width, mxi = 0; mx < map[y].Count && mxi < matrix.GetLength(1); mx++, mxi++)
+                            {
+                                if (my < 0 || mx < 0)
+                                {
+                                    continue;
+                                }
+
+                                red += matrix[myi, mxi] * map[my][mx].R;
+                                green += matrix[myi, mxi] * map[my][mx].G;
+                                blue += matrix[myi, mxi] * map[my][mx].B;
+
+                                count++;
+                            }
+                        }
+
+                        red /= count;
+                        green /= count;
+                        blue /= count;
+
+                        test.SetPixel(x, y, Color.FromArgb((int)red, (int)green, (int)blue));
+                        buffer[y][x] = Color.FromArgb((int)red, (int)green, (int)blue);
+
+                        var color = (int)((new DeepRangeColor { Red = red, Green = green, Blue = blue }).GetBrightness() * 255);
+
+                        brightnessMap.SetPixel(x, y, Color.FromArgb(color, color, color));
+                    }
+                }
+
+                map = buffer;
+                brightnessMap.Save($"brightnessMap{i}.png");
+            }
+
+            brightnessMapPre.Save("brightnessMapPre.png");
+            pre.Save("pre.png");*/
+            brightnessMap.Save("brightnessMap.png");
+            test.Save("test3.png");
         }
 
         static float Add(float value)
