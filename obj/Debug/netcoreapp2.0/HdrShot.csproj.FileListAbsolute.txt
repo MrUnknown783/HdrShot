@@ -9,3 +9,14 @@ F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfoInputs.cache
 F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfo.cs
 F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.dll
 F:\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.pdb
+C:\Users\dtsel\Documents\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.deps.json
+C:\Users\dtsel\Documents\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.runtimeconfig.json
+C:\Users\dtsel\Documents\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.runtimeconfig.dev.json
+C:\Users\dtsel\Documents\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.dll
+C:\Users\dtsel\Documents\Git\HdrShot\bin\Debug\netcoreapp2.0\HdrShot.pdb
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.csprojAssemblyReference.cache
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.csproj.CoreCompileInputs.cache
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfoInputs.cache
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.AssemblyInfo.cs
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.dll
+C:\Users\dtsel\Documents\Git\HdrShot\obj\Debug\netcoreapp2.0\HdrShot.pdb

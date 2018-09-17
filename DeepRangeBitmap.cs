@@ -35,12 +35,17 @@ namespace HdrShot
 
             brightness += color;
 
-            if (brightness.GetBrightnessNormal() > 0.8f)
+            /*if (brightness.GetBrightnessNormal() > 0.95f || brightness.GetBrightnessNormal() < 0.04f)
             {
                 return 0;
-            }
+            }*/
 
             Pixels[y][x] += color;
+
+            if (Pixels[y][x].MaxRelation == null || Pixels[y][x].MaxRelationDifference < brightness.RelationDifference)
+            {
+                Pixels[y][x].MaxRelation = brightness.Relation;
+            }
 
             if (Pixels[y][x].GetBrightness() > (BrightnessPixel?.GetBrightness() ?? 0))
             {

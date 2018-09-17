@@ -879,23 +879,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\unkno\\.nuget\\packages\\": {},
+    "C:\\Users\\dtsel\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Git\\HdrShot\\HdrShot.csproj",
+      "projectUniqueName": "C:\\Users\\dtsel\\Documents\\Git\\HdrShot\\HdrShot.csproj",
       "projectName": "HdrShot",
-      "projectPath": "F:\\Git\\HdrShot\\HdrShot.csproj",
-      "packagesPath": "C:\\Users\\unkno\\.nuget\\packages\\",
-      "outputPath": "F:\\Git\\HdrShot\\obj\\",
+      "projectPath": "C:\\Users\\dtsel\\Documents\\Git\\HdrShot\\HdrShot.csproj",
+      "packagesPath": "C:\\Users\\dtsel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dtsel\\Documents\\Git\\HdrShot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\unkno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dtsel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
